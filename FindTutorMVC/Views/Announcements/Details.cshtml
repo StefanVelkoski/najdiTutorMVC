@@ -1,0 +1,125 @@
+﻿@model FindTutorMVC.Models.Announcement
+@using Microsoft.AspNet.Identity
+@using FindTutorMVC.Models
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">
+        @Html.DisplayNameFor(model => model.Title):
+        @Html.DisplayFor(model => model.Title)
+    </h1>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-6">
+            <img class="img-fluid" src="https://immedilet-invest.com/wp-content/uploads/2016/01/user-placeholder.jpg" alt="" style="max-width: 450px">
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">Short summary</h3>
+            <p>
+                @Html.DisplayFor(model => model.Description)
+            </p>
+            <h3 class="my-3">Details</h3>
+            <ul>
+                <li>
+                    @Html.DisplayNameFor(model => model.Price):
+                    @Html.DisplayFor(model => model.Price)
+                </li>
+                <li>
+                    @Html.DisplayNameFor(model => model.Difficulty):
+                    @Html.DisplayFor(model => model.Difficulty)
+                </li>
+                <li>
+                    @Html.DisplayNameFor(model => model.Date):
+                    @Html.DisplayFor(model => model.Date)
+                </li>
+                <li>
+                    @Html.DisplayNameFor(model => model.Score):
+                    @Html.DisplayFor(model => model.Score)
+                </li>
+            </ul>
+            <h3 class="my-3">Author</h3>
+            <ul>
+                <li>
+                    @Html.DisplayNameFor(model => model.Tutor.UserName):
+                    @Html.DisplayFor(model => model.Tutor.UserName)
+                </li>
+                <li>
+                    @Html.DisplayNameFor(model => model.Tutor.Email):
+                    @Html.DisplayFor(model => model.Tutor.Email)
+                </li>
+                <li>
+                    @Html.DisplayNameFor(model => model.Tutor.PhoneNumber):
+                    @Html.DisplayFor(model => model.Tutor.PhoneNumber)
+                </li>
+            </ul>
+            <br />
+            <div class="form-group">                
+                @if (User.IsInRole("Admin") || User.IsInRole("Tutor"))
+                {
+                    using (ApplicationDbContext db = new ApplicationDbContext())
+                    {
+                        Announcement currentAnnouncement = db.Announcements.Find(Model.Id);
+                        ApplicationUser currentTutor = db.Users.Find(User.Identity.GetUserId());
+
+                        if (User.IsInRole("Admin") || currentAnnouncement.Tutor == currentTutor)
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+                        }
+                    }
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Customer"))
+                {
+                    string id = User.Identity.GetUserId();
+                    int announcement = Model.Id;
+                    @Html.ActionLink("Submit review", "Create/" + id + "/" + announcement, "Reviews")
+                }
+
+                @Html.ActionLink("Back to the list of announcements", "Index")
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->

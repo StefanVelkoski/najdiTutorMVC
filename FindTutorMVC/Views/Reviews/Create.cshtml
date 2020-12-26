@@ -1,0 +1,52 @@
+﻿@model FindTutorMVC.Models.ReviewForAnnouncement
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h3>Your feedback is appreciated, feel free to comment!</h3>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.AnnouncementId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Review.Score, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Review.Score, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Review.Score, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Review.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Review.Reason, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Review.Reason, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Cancel", "Index", "Announcements")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

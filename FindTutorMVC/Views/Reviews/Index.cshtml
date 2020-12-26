@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FindTutorMVC.Models.Review>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>List of all submitted reviews</h3>
+<br />
+<table class="table" id="reviewsTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Announcement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submitter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Announcement.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Submitter.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section scripts{
+    <script>
+        $("#reviewsTable").DataTable();
+    </script>
+}

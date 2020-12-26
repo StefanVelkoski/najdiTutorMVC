@@ -1,0 +1,55 @@
+﻿@model FindTutorMVC.Models.Review
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Your selected review is down below</h3>
+
+<h3>Are you sure you want to delete this item?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Announcement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Announcement.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to the list of reviews", "Index")
+        </div>
+    }
+</div>

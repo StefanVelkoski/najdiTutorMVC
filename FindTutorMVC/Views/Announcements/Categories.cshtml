@@ -1,0 +1,150 @@
+﻿<style>
+    .card-block {
+        padding: 10%;
+    }
+
+    .categories-card {
+        padding: 1%;
+    }
+
+    .card-title {
+        margin-bottom: 1.75rem;
+    }
+
+    .categories-card:hover {
+        transform: translateY(-1.5rem) scale(1.03);
+        cursor: pointer;
+    }
+
+    .red-card {
+        border-radius: 10%;
+        color: white;
+        background-color: tomato;
+    }
+
+    .blue-card {
+        border-radius: 10%;
+        color: white;
+        background-color: rgb(34 70 232 / 95%);
+    }
+
+    .yellow-card {
+        border-radius: 10%;
+        color: white;
+        background-color: rgb(255, 212, 71);
+    }
+
+    .green-card {
+        border-radius: 10%;
+        color: white;
+        background-color: rgb(52, 146, 64);
+    }
+
+    .turqoise-card {
+        border-radius: 10%;
+        color: white;
+        background-color: rgb(55, 145, 136)
+    }
+
+    .grey-card {
+        border-radius: 10%;
+        color: white;
+        background-color: rgb(56, 52, 52)
+    }
+
+    .categories-custom {
+        margin-top: 6%;
+        margin-bottom: 6%;
+    }
+
+    .category-link {
+        text-decoration: none;
+        color: white;
+    }
+
+    .category-link:visited {
+        color: white;
+    }
+</style>
+
+<div class="container categories-custom">
+    <div class="row my-3">
+        <div class="col-md-4 categories-card" id="Arts">
+            <div class="card text-center blue-card">
+                <div class="card-block">
+                    <h4 class="card-title">
+                        @Html.ActionLink("Arts", "AnnouncementsByCategory", new { id = "Arts" }, new { @class = "category-link" })
+                    </h4>
+                    <h2><i class="fa fa-paint-brush fa-3x"></i></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 categories-card" id="Languages">
+            <div class="card text-center red-card">
+                <div class="card-block">
+                    <h4 class="card-title">
+                        @Html.ActionLink("Languages", "AnnouncementsByCategory", new { id = "Languages" }, new { @class = "category-link" })
+                    </h4>
+                    <h2><i class="fa fa-book fa-3x"></i></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 categories-card" id="Mathematics">
+            <div class="card text-center yellow-card">
+                <div class="card-block">
+                    <h4 class="card-title">
+                        @Html.ActionLink("Mathematics", "AnnouncementsByCategory", new { id = "Mathematics" }, new { @class = "category-link" })
+                    </h4>
+                    <h2><i class="fa fa-calculator fa-3x"></i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-md-4 categories-card" id="Computer Science">
+            <div class="card text-center  green-card">
+                <div class="card-block">
+                    <h4 class="card-title">
+                        @Html.ActionLink("Computer Science", "AnnouncementsByCategory", new { id = "Computer Science" }, new { @class = "category-link" })
+                    </h4>
+                    <h2><i class="fa fa-code fa-3x"></i></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 categories-card" id="Music">
+            <div class="card text-center turqoise-card">
+                <div class="card-block">
+                    <h4 class="card-title">
+                        @Html.ActionLink("Music", "AnnouncementsByCategory", new { id = "Music" }, new { @class = "category-link" })
+                    </h4>
+                    <h2><i class="fa fa-music fa-3x"></i></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 categories-card" id="Natural and Social Sciences">
+            <div class="card text-center grey-card">
+                <div class="card-block">
+                    <h4 class="card-title">
+                        @Html.ActionLink("Natural and Social Sciences", "AnnouncementsByCategory", new { id = "Natural and Social Sciences" }, new { @class = "category-link" })
+                    </h4>
+                    <h2><i class="fa fa-flask fa-3x"></i></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        /*$(".categories-card").click(function (event) {
+            event.preventDefault();
+            var card = $(this);
+            $.get("/Announcements/AnnouncementsByCategory/" + card.attr("id"));
+        });*/
+    </script>
+}

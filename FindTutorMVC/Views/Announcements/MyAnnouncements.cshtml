@@ -1,0 +1,87 @@
+﻿@model IEnumerable<FindTutorMVC.Models.Announcement>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "MyAnnouncements";
+}
+
+<h3>Saved announcements</h3>
+<br />
+<table class="table" id="announcementsTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tutor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Difficulty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tutor.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Difficulty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    
+                    @if (User.IsInRole("Admin") || User.IsInRole("Customer"))
+                    {
+                        @Html.ActionLink("Remove from favourites", "RemoveAnnouncementFromFavourites", new { id = User.Identity.GetUserId(), announcement = item.Id })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section scripts{
+    <script>
+        $("#announcementsTable").DataTable();
+    </script>
+}
