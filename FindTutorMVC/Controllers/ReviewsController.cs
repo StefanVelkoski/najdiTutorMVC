@@ -26,7 +26,7 @@ namespace FindTutorMVC.Controllers
             return View(Reviews);
         }
 
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult MyReviews(string id)
         {
             List<ReviewToUser> ReviewsToUser = db.ReviewsToUsers
@@ -49,7 +49,7 @@ namespace FindTutorMVC.Controllers
         }
 
         // GET: Reviews/Details/5
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -82,7 +82,7 @@ namespace FindTutorMVC.Controllers
         }
 
         // GET: Reviews/Create
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult Create(string id, int announcement)
         {
             ReviewForAnnouncement model = new ReviewForAnnouncement();
@@ -95,7 +95,7 @@ namespace FindTutorMVC.Controllers
         // POST: Reviews/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId, AnnouncementId, Review")] ReviewForAnnouncement model)
@@ -135,7 +135,7 @@ namespace FindTutorMVC.Controllers
         }
 
         // GET: Reviews/Edit/5
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -170,7 +170,7 @@ namespace FindTutorMVC.Controllers
         // POST: Reviews/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Score,Reason")] Review review)
@@ -203,7 +203,7 @@ namespace FindTutorMVC.Controllers
         /*[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]*/
         [HttpPost]
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult DeleteConfirmed(int id)
         {
             Review review = db.Reviews.Find(id);

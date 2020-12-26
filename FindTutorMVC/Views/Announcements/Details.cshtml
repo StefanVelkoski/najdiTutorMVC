@@ -61,7 +61,10 @@
                 </li>
             </ul>
             <br />
-            <div class="form-group">                
+            <div class="form-group">
+
+                <a href="/Announcements/AnnouncementsByCategory/@Model.Category" class="btn btn-primary">Back to the list of announcements</a>
+
                 @if (User.IsInRole("Admin") || User.IsInRole("Tutor"))
                 {
                     using (ApplicationDbContext db = new ApplicationDbContext())
@@ -71,7 +74,8 @@
 
                         if (User.IsInRole("Admin") || currentAnnouncement.Tutor == currentTutor)
                         {
-                            @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+
                         }
                     }
                 }
@@ -80,46 +84,11 @@
                 {
                     string id = User.Identity.GetUserId();
                     int announcement = Model.Id;
-                    @Html.ActionLink("Submit review", "Create/" + id + "/" + announcement, "Reviews")
+                    <a href="/Reviews/Create/@id/@announcement" class="btn btn-success">Submit review</a>
                 }
 
-                @Html.ActionLink("Back to the list of announcements", "Index")
             </div>
         </div>
     </div>
-
-    <div class="row">
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </a>
-        </div>
-
-    </div>
-    <!-- /.row -->
-
 </div>
 <!-- /.container -->

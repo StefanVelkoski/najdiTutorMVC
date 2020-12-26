@@ -8,7 +8,7 @@
 
 <h3>Saved reviews</h3>
 <br />
-<table class="table" id="reviewsTable">
+<table class="table table-hover" id="reviewsTable">
     <thead>
         <tr>
             <th>
@@ -27,7 +27,9 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Announcement.Title)
+                    <a href="/Announcements/Details/@item.Announcement.Id" style="cursor: pointer; text-decoration: none">
+                        @Html.DisplayFor(modelItem => item.Announcement.Title)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Score)

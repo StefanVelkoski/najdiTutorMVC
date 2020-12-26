@@ -40,7 +40,7 @@ namespace FindTutorMVC.Controllers
             return View(announcements);
         }
 
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult MyAnnouncements(string id)
         {
             List<FavouriteAnnouncementToUser> AnnouncementsToUser = db.FavouriteAnnouncementsToUsers
@@ -93,7 +93,7 @@ namespace FindTutorMVC.Controllers
             return View(announcement);
         }
 
-        [Authorize(Roles = "Admin,Tutor")]
+        [Authorize(Roles = "Admin, Tutor")]
         // GET: Announcements/Create
         public ActionResult Create()
         {
@@ -107,7 +107,7 @@ namespace FindTutorMVC.Controllers
         // POST: Announcements/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin,Tutor")]
+        [Authorize(Roles = "Admin, Tutor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TutorId, Announcement")] AnnouncementToTutor announcementToTutor)
@@ -124,7 +124,7 @@ namespace FindTutorMVC.Controllers
             return View(announcementToTutor);
         }
 
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult AddAnnouncementToFavourites(string id, int announcement)
         {
             FavouriteAnnouncementToUser model = new FavouriteAnnouncementToUser();
@@ -136,7 +136,7 @@ namespace FindTutorMVC.Controllers
             return RedirectToAction("MyAnnouncements/" + id);
         }
 
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         public ActionResult RemoveAnnouncementFromFavourites(string id, int announcement)
         {
             FavouriteAnnouncementToUser model = db.FavouriteAnnouncementsToUsers
@@ -148,7 +148,7 @@ namespace FindTutorMVC.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "Admin,Tutor")]
+        [Authorize(Roles = "Admin, Tutor")]
         // GET: Announcements/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -183,7 +183,7 @@ namespace FindTutorMVC.Controllers
         // POST: Announcements/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin,Tutor")]
+        [Authorize(Roles = "Admin, Tutor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Category,Price,Difficulty,Description,Score,Date")] Announcement announcement)
@@ -215,7 +215,7 @@ namespace FindTutorMVC.Controllers
         // POST: Announcements/Delete/5
         /*[HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]*/
-        [Authorize(Roles = "Admin,Tutor")]
+        [Authorize(Roles = "Admin, Tutor")]
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {
