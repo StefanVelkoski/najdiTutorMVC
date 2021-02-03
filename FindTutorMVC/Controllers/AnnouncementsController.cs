@@ -32,10 +32,20 @@ namespace FindTutorMVC.Controllers
 
         public ActionResult AnnouncementsByCategory(string id)
         {
-            List<Announcement> announcements = db.Announcements
-                .Where(a => a.Category.Equals(id))
-                .Include(a => a.Tutor)
-                .ToList();
+            List<Announcement> announcements;
+
+            if (id.Equals("all"))
+            {
+                announcements = db.Announcements
+                            .Include(a => a.Tutor)
+                            .ToList();
+            } else
+            {
+                announcements = db.Announcements
+                            .Where(a => a.Category.Equals(id))
+                            .Include(a => a.Tutor)
+                            .ToList();
+            }
 
             return View(announcements);
         }
@@ -115,6 +125,26 @@ namespace FindTutorMVC.Controllers
             if (ModelState.IsValid)
             {
                 announcementToTutor.Announcement.Tutor = db.Users.Find(announcementToTutor.TutorId);
+
+                List<Announcement> existingAnnouncements = db.Announcements
+                    .Include(a => a.Tutor)
+                    .ToList();
+                
+                for (int i = 0; i < existingAnnouncements.Count; i++)
+                {
+                    Announcement a = existingAnnouncements[i];
+
+                    if (a.Tutor.Id == announcementToTutor.TutorId
+                        && a.Category.Equals(announcementToTutor.Announcement.Category) 
+                        && a.Title.Equals(announcementToTutor.Announcement.Title)
+                        && a.Price == announcementToTutor.Announcement.Price
+                        && a.Difficulty.Equals(announcementToTutor.Announcement.Difficulty)
+                        && a.Description.Equals(announcementToTutor.Announcement.Description))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+
                 db.Announcements.Add(announcementToTutor.Announcement);
                 db.SaveChanges();
                 
@@ -127,6 +157,20 @@ namespace FindTutorMVC.Controllers
         [Authorize(Roles = "Admin, Customer")]
         public ActionResult AddAnnouncementToFavourites(string id, int announcement)
         {
+            List<FavouriteAnnouncementToUser> existingAnnouncements = db
+                .FavouriteAnnouncementsToUsers
+                .ToList();
+
+            for (int i = 0; i < existingAnnouncements.Count; i++)
+            {
+                FavouriteAnnouncementToUser fau = existingAnnouncements[i];
+                
+                if (fau.UserId.Equals(id) && fau.AnnouncementId == announcement)
+                {
+                    return RedirectToAction("MyAnnouncements/" + id);
+                }
+            }
+
             FavouriteAnnouncementToUser model = new FavouriteAnnouncementToUser();
             model.UserId = id;
             model.AnnouncementId = announcement;

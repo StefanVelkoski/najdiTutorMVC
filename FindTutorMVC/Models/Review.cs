@@ -17,6 +17,7 @@ namespace FindTutorMVC.Models
         [Display(Name = "Submitted by")]
         public ApplicationUser Submitter { get; set; }
 
+        [Range(1, 1000, ErrorMessage = "You must enter a positive value.")]
         [Display(Name = "Given score")]
         public int Score { get; set; }
 

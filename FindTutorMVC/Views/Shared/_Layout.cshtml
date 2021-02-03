@@ -24,7 +24,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About us", "About", "Home")</li>
                     <li>@Html.ActionLink("Categories", "Categories", "Announcements")</li>
-                    
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Tutor"))
+                    {
+                        <li>@Html.ActionLink("Announcements", "AnnouncementsByCategory/all", "Announcements")</li>
+                    }
+
                     @if (User.IsInRole("Admin") || User.IsInRole("Customer"))
                     {
                         string id = User.Identity.GetUserId();
