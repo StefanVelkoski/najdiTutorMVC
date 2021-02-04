@@ -65,14 +65,14 @@
 
                 <a href="/Announcements/AnnouncementsByCategory/@Model.Category" class="btn btn-primary">Back to the list of announcements</a>
 
-                @if (User.IsInRole("Admin") || User.IsInRole("Tutor"))
+                @if (User.IsInRole("Tutor"))
                 {
                     using (ApplicationDbContext db = new ApplicationDbContext())
                     {
                         Announcement currentAnnouncement = db.Announcements.Find(Model.Id);
                         ApplicationUser currentTutor = db.Users.Find(User.Identity.GetUserId());
 
-                        if (User.IsInRole("Admin") || currentAnnouncement.Tutor == currentTutor)
+                        if (currentAnnouncement.Tutor == currentTutor)
                         {
                             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
 

@@ -8,7 +8,7 @@
 
 <h3>List of all existing and available announcements</h3>
 <br />
-@if (User.IsInRole("Admin") || User.IsInRole("Tutor"))
+@if (User.IsInRole("Tutor"))
 {
     <a href="/Announcements/Create/" class="btn btn-info">Create a new announcement</a>
     <br />
@@ -82,14 +82,14 @@
                         <br />
                     }
 
-                    @if (User.IsInRole("Admin") || User.IsInRole("Tutor"))
+                    @if (User.IsInRole("Tutor"))
                     {
                         using (ApplicationDbContext db = new ApplicationDbContext())
                         {
                             Announcement currentAnnouncement = db.Announcements.Find(item.Id);
                             ApplicationUser currentTutor = db.Users.Find(User.Identity.GetUserId());
 
-                            if (User.IsInRole("Admin") || currentAnnouncement.Tutor == currentTutor)
+                            if (currentAnnouncement.Tutor == currentTutor)
                             {
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-warning" })
                                 <br />

@@ -33,20 +33,21 @@ namespace FindTutorMVC.Controllers
         public ActionResult AnnouncementsByCategory(string id)
         {
             List<Announcement> announcements;
-
+            
             if (id.Equals("all"))
             {
                 announcements = db.Announcements
                             .Include(a => a.Tutor)
                             .ToList();
-            } else
+            }
+            else
             {
                 announcements = db.Announcements
                             .Where(a => a.Category.Equals(id))
                             .Include(a => a.Tutor)
                             .ToList();
             }
-
+            
             return View(announcements);
         }
 
@@ -241,24 +242,7 @@ namespace FindTutorMVC.Controllers
             return View(announcement);
         }
 
-        // GET: Announcements/Delete/5
-        /*public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Announcement announcement = db.Announcements.Find(id);
-            if (announcement == null)
-            {
-                return HttpNotFound();
-            }
-            return View(announcement);
-        }*/
-
         // POST: Announcements/Delete/5
-        /*[HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]*/
         [Authorize(Roles = "Admin, Tutor")]
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)

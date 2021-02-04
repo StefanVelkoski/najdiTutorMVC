@@ -110,13 +110,20 @@ namespace FindTutorMVC.Controllers
                 review.Score = model.Review.Score;
                 review.Reason = model.Review.Reason;
 
-                int score = model.Review.Score;
-                announcement.Score += score;
-
                 List<Review> reviews = db.Reviews.Where(r => r.Announcement.Id == announcement.Id).ToList();
                 if (reviews.Count != 0)
                 {
-                    announcement.Score /= (reviews.Count + 1);
+                    int sum = 0;
+                    reviews.ForEach(r => {
+                        sum += r.Score;
+                    });
+                    sum += model.Review.Score;
+
+                    announcement.Score = sum / (reviews.Count + 1);
+                }
+                else
+                {
+                    announcement.Score = review.Score;
                 }
 
                 review = db.Reviews.Add(review);
@@ -184,24 +191,7 @@ namespace FindTutorMVC.Controllers
             return View(review);
         }
 
-        // GET: Reviews/Delete/5
-        /*public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Review review = db.Reviews.Find(id);
-            if (review == null)
-            {
-                return HttpNotFound();
-            }
-            return View(review);
-        }*/
-
         // POST: Reviews/Delete/5
-        /*[HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]*/
         [HttpPost]
         [Authorize(Roles = "Admin, Customer")]
         public ActionResult DeleteConfirmed(int id)
